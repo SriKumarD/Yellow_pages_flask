@@ -1,0 +1,106 @@
+<html lang="en">
+<head>
+  <title>Yellow Pages</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css" integrity="sha512-N415hCJJdJx+1UBfULt+i+ihvOn42V/kOjOpp1UTh4CZ70Hx5bDlKryWaqEKfY/8EYOu/C2MuyaluJryK1Lb5Q==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.min.js" integrity="sha512-mp3VeMpuFKbgxm/XMUU4QQUcJX4AZfV5esgX72JQr7H7zWusV6lLP1S78wZnX2z9dwvywil1VHkHZAqfGOW7Nw==" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <script src="{{url_for('static', filename='js/home.js')}}"></script>
+    
+    <style>
+      .sr{
+        height: 23rem;
+        overflow: auto;
+      }
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(0, 0, 0); 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #ffffff;  
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff; 
+}
+    </style>
+</head>
+<body class="bg-warning bg-gradient">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Yellow Pages</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link active" href="/view">View All Records</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link active" href="/update">Update Record</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link active" href="/del">Delete Record</a>
+          </li>     
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="container-fluid" id="grading_form">
+        <div clas="row">
+            <div class="offset-md-2 col-md-8 mt-3 p-4">
+                <div class="card text-white bg-dark bg-gradient">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                          <form class="d-flex" id="sform" method="POST" action="/search">
+                          <input class="form-control me-2" type="search"  placeholder="Search with number"  name="ss" aria-label="Search">
+                          <button class="btn btn-outline-light" type="submit" id="search" hidden>Search</button>
+                        </form>
+                      </h5>
+                        
+                    </div>
+                    <div class="card-body sr">
+                        <table class="table table-dark table-striped table-bordered table-hover border-light">  
+                            <thead class="fix-head text-center">   
+                                <td>Company Name</td>  
+                                <td>Company Email</td>
+                                <td>Company Phone Number</td>
+                                <td>Company Address</td>
+                                <td colspan="2">
+                                  
+                                </td> 
+                            </thead>  
+                               
+                            {% for row in rows %}  
+                               
+                                <tr>  
+                                    <td>{{row["name"]}}</td>  
+                                    <td>{{row["email"]}}</td>  
+                                    <td>{{row["pnum"]}}</td>
+                                    <td>{{row["address"]}}</td>
+                                    <td>
+                                        <a href="/update"><button class="btn btn-warning">Update</button></a>
+                                    </td>
+                                     <td>
+                                        <a href="/del"><button class="btn btn-danger">Delete</button></a>
+                                     </td>
+                                </tr>  
+                               
+                            {% endfor %}  
+                        </table> 
+                    </div>
+                    <div class="card-footer mt-2"> 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Yellow Pages</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/css/bootstrap.min.css"
+        integrity="sha512-N415hCJJdJx+1UBfULt+i+ihvOn42V/kOjOpp1UTh4CZ70Hx5bDlKryWaqEKfY/8EYOu/C2MuyaluJryK1Lb5Q=="
+        crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-beta3/js/bootstrap.min.js"
+        integrity="sha512-mp3VeMpuFKbgxm/XMUU4QQUcJX4AZfV5esgX72JQr7H7zWusV6lLP1S78wZnX2z9dwvywil1VHkHZAqfGOW7Nw=="
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='js/home.js')}}"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px rgb(0, 0, 0);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffffff;
+        }
+
+        .noB {
+            border: none;
+        }
+    </style>
+</head>
+
+<body class="bg-warning bg-gradient">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Yellow Pages</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link active" href="/view">View All Records</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link active" href="/update">Update Record</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link active" href="/del">Delete Record</a>
+              </li>     
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container" id="grading_form">
+        <div clas="row">
+            <div class="offset-md-3 col-md-6 mt-4 mb-4">
+                <div class="card text-white bg-dark bg-gradient shadow-lg mb-5" id="stu_form">
+                    <div class="card-header">
+                        <h5 class="card-title">Update Student Record</h5>
+                    </div>
+                    {% for row in rows %}
+                    <div class="card-body">
+                        <form action="/updatedata" method="post" id="upform">
+                            <div class="mb-2">
+                                <label for="name" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Company Name"
+                                    required value="{{row['name']}}">
+                            </div>
+                            <div class="mb-2">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                    required value="{{row['email']}}">
+                            </div>
+                            <div class="mb-2" style="pointer-events: none;">
+                                <label for="phonenumber" class="form-label">Phone Number</label>
+                                <input type="number" class="form-control bg-secondary" id="phonenumber"   name="phonenumber" 
+                                    max="9999999999" placeholder="Phone Number" value="{{row['pnum']}}" required>
+                            </div>
+                            <div class="mb-2">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" aria-label="With textarea" name="address" id="address"
+                                    placeholder="Address" required>{{row['address']}}</textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" id="onup" class="btn btn-block btn-warning">Update</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    {% endfor %}
+                    {% if msg[0]=='F' %}
+              <div class="card-footer border-success">
+                        <div class="text-danger">{{msg[1]}}</div>
+                      </div>
+                    {% endif %} 
+                </div>
+</body>
+
+</html>
